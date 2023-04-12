@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 
-export const BoradStyled = styled.div`
+export const BoardStyled = styled.div`
   height: auto;
   width: auto;
   background-color: aquamarine;
