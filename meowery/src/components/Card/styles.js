@@ -7,6 +7,7 @@ export const CardStyledInner = styled.div`
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+  transform: ${(props) => (props.flipped ? "rotateY(180deg)" : "none")};
 `;
 
 export const CardStyledBack = styled.div`
@@ -23,9 +24,7 @@ export const CardStyled = styled.div`
   perspective: 1000px;
   background-color: transparent;
   border-radius: 4px;
-  &:hover ${CardStyledInner} {
-    transform: rotateY(180deg);
-  }
+  display: ${(props) => (props.id ? "none" : "visble")};
 `;
 
 export const CardStyledFront = styled.div`

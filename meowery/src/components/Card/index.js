@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
   CardStyled,
@@ -9,11 +9,24 @@ import {
 } from "./styles";
 
 const Card = (props) => {
+  const [flipped, setFlipped] = useState(false);
+  const [id, setSameId] = useState(false);
+
+  const handleClick = () => {
+    setFlipped(!flipped);
+  };
+  const handleClickId = () => {
+    id(!setSameId);
+  };
   return (
-    <CardStyled>
-      <CardStyledInner>
+    <CardStyled onClick={handleClick} id={id}>
+      <CardStyledInner onClick={handleClick} flipped={flipped}>
         <CardStyledFront>
-          <CardImageStyled src={props.image} alt="cat-image"></CardImageStyled>
+          <CardImageStyled
+            src={props.image}
+            id={props.id}
+            alt="cat-image"
+          ></CardImageStyled>
         </CardStyledFront>
         <CardStyledBack>hej</CardStyledBack>
       </CardStyledInner>
@@ -24,4 +37,5 @@ export default Card;
 
 Card.propTypes = {
   image: PropTypes.string,
+  id: PropTypes.string,
 };
