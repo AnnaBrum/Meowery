@@ -12,7 +12,7 @@ import img6 from "../../images/cat06.jpeg";
 import img7 from "../../images/cat07.jpeg";
 import img8 from "../../images/cat08.jpeg";
 
-const images = [
+let images = [
   { id: "1", name: img1 },
   { id: "2", name: img2 },
   { id: "3", name: img3 },
@@ -21,14 +21,26 @@ const images = [
   { id: "6", name: img6 },
   { id: "7", name: img7 },
   { id: "8", name: img8 },
+  { id: "9", name: img1 },
+  { id: "10", name: img2 },
+  { id: "11", name: img3 },
+  { id: "12", name: img4 },
+  { id: "13", name: img5 },
+  { id: "14", name: img6 },
+  { id: "15", name: img7 },
+  { id: "16", name: img8 },
 ];
 
-const doubledImages = images.map((image) + images.length);
+// images.push(...images);
 
 const Board = () => {
   return (
     <BoardStyled>
-      return (<Card key={image.id} id={image.id} image={image.name}></Card>)
+      {images
+        .sort(() => Math.random() - 0.5)
+        .map((image) => (
+          <Card key={image.id} image={image.name} />
+        ))}
     </BoardStyled>
   );
 };

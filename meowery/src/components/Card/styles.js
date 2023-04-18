@@ -24,7 +24,6 @@ export const CardStyled = styled.div`
   perspective: 1000px;
   background-color: transparent;
   border-radius: 4px;
-  display: ${(props) => (props.id ? "none" : "visble")};
 `;
 
 export const CardStyledFront = styled.div`
