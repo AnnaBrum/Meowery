@@ -12,6 +12,11 @@ import img6 from "../../images/cat06.jpeg";
 import img7 from "../../images/cat07.jpeg";
 import img8 from "../../images/cat08.jpeg";
 
+window.addEventListener("click", function handleClick(e) {
+  const selectedElement = e.target;
+  console.log(selectedElement.);
+});
+
 let images = [
   { id: "1", name: img1 },
   { id: "2", name: img2 },
@@ -31,6 +36,7 @@ let images = [
   { id: "16", name: img8 },
 ];
 
+
 // images.push(...images);
 
 const Board = () => {
@@ -39,7 +45,7 @@ const Board = () => {
       {images
         .sort(() => Math.random() - 0.5)
         .map((image) => (
-          <Card key={image.id} image={image.name} />
+          <Card id={image.id} image={image.name} key={image.id}/>
         ))}
     </BoardStyled>
   );
