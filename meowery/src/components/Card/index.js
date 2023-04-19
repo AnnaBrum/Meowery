@@ -17,7 +17,7 @@ const Card = (props) => {
   };
 
   return (
-    <CardStyled name={props.name} onClick={handleClick}>
+    <CardStyled onClick={handleClick}>
       <CardStyledInner flipped={flipped}>
         <CardStyledFront>
           <CardImageStyled
@@ -26,7 +26,7 @@ const Card = (props) => {
             alt="cat-image"
           ></CardImageStyled>
         </CardStyledFront>
-        <CardStyledBack>hej</CardStyledBack>
+        <CardStyledBack id={props.id}>hej</CardStyledBack>
       </CardStyledInner>
     </CardStyled>
   );
