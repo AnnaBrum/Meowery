@@ -12,11 +12,6 @@ import img6 from "../../images/cat06.jpeg";
 import img7 from "../../images/cat07.jpeg";
 import img8 from "../../images/cat08.jpeg";
 
-window.addEventListener("click", function handleClick(e) {
-  const selectedElement = e.target;
-  console.log(selectedElement.id);
-});
-
 let images = [
   { id: "1", name: img1 },
   { id: "2", name: img2 },
@@ -27,6 +22,35 @@ let images = [
   { id: "7", name: img7 },
   { id: "8", name: img8 },
 ];
+
+window.addEventListener("click", function handleClick(e) {
+  const selectedElement = e.target;
+  console.log(selectedElement.id);
+});
+
+function SelectedImg() {
+  const [cardsChosen, setCardsChosen] = useState([]);
+  //console.log(image, index);
+
+  if (cardsChosen?.length < 2) {
+    setCardsChosen((cardsChosen) => cardsChosen?.concat(image.id));
+    // setCardsChosenIds(cardsChosenIds => cardsChosenIds?.concat(index))
+
+    if (cardsChosen?.length === 1) {
+      // Check if images are the same
+      if (cardsChosen[0] === image.id) {
+        //setPoints(points => points + 2)
+        setOpenCards((openCards) =>
+          openCards?.concat([cardsChosen[0], image.id])
+        );
+      }
+      // setTimeout(() => {
+      //     setCardsChosenIds([])
+      //     setCardsChosen([])
+      // }, 700)
+    }
+  }
+}
 
 images.push(...images);
 
