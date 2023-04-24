@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BoardStyled } from "./styled";
 import Card from "../Card/card.js";
 
-import img1 from "../../images/cat01.jpeg";
+import img1 from "../images/cat01.jpeg";
 import img2 from "../../images/cat02.jpeg";
 import img3 from "../../images/cat03.jpeg";
 import img4 from "../../images/cat04.jpeg";
@@ -57,7 +57,7 @@ const Board = () => {
       {cards.map((card) => (
         <Card
           key={card.id}
-          id={card.id}
+          id={card.i}
           image={card.name}
           matched={card.matched}
           onClick={handleCardClick}

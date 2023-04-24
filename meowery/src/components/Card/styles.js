@@ -7,8 +7,21 @@ export const CardStyledInner = styled.div`
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
-  transform: ${(props) => (props.flipped ? "rotateY(180deg)" : "none")};
+
+ &.flipped {
+    transform: rotateY(180deg);
+ }
+
+ &.wrong {
+  border: 3px solid black;
+ }
+
+ &.same {
+  border: 3px solid lightgreen;
+ }
+  
 `;
+
 
 export const CardStyledBack = styled.div`
   position: absolute;

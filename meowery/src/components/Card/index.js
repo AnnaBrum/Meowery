@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+
 import {
   CardStyled,
   CardStyledInner,
@@ -8,32 +7,26 @@ import {
   CardImageStyled,
 } from "./styles";
 
-const Card = (props) => {
-  const [flipped, setFlipped] = useState(false);
-  // const [sameName, setSameName] = useState("");
+function Card({image, id, handleClick}) {
 
-  const handleClick = () => {
-    setFlipped(!flipped);
-  };
+  const imageClass = image.status ? " flipped" + image.status : "";
+  
+  
 
   return (
-    <CardStyled onClick={handleClick}>
-      <CardStyledInner flipped={flipped}>
+    <CardStyled  onClick={() => handleClick(id)}>
+      <CardStyledInner className={imageClass}>
         <CardStyledFront>
           <CardImageStyled
-            src={props.image}
-            id={props.id}
+            src={image.url}
             alt="cat-image"
-          ></CardImageStyled>
+          />
         </CardStyledFront>
-        <CardStyledBack id={props.id}>hej</CardStyledBack>
+        <CardStyledBack>hej</CardStyledBack>
       </CardStyledInner>
     </CardStyled>
+    
   );
 };
 export default Card;
 
-Card.propTypes = {
-  image: PropTypes.string,
-  id: PropTypes.string,
-};

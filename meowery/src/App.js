@@ -4,6 +4,8 @@ import Board from "./components/Board/";
 function App() {
   return (
     <div className="App">
+      <h1>MEOWERY</h1>
+      <h2>Meeeow, find two cats that look the same, and we shall praise thy name!</h2>
       <Board />
     </div>
   );

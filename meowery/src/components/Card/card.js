@@ -21,7 +21,7 @@ const Card = ({ id, image, flipped, onClick, matched }) => {
     <CardStyled onClick={handleClick} matched={matched}>
       <CardStyledInner flipped={isFlipped}>
         <CardStyledFront>
-          <CardImageStyled src={image} alt="cat-image"></CardImageStyled>
+          <CardImageStyled src={image.url} alt="cat-image"></CardImageStyled>
         </CardStyledFront>
         <CardStyledBack flipped={!isFlipped}>hej</CardStyledBack>
       </CardStyledInner>

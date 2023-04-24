@@ -1,69 +1,85 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
+// import PropTypes from "prop-types";
 import { BoardStyled } from "./styled";
 import Card from "../Card/";
 
-import img1 from "../../images/cat01.jpeg";
-import img2 from "../../images/cat02.jpeg";
-import img3 from "../../images/cat03.jpeg";
-import img4 from "../../images/cat04.jpeg";
-import img5 from "../../images/cat05.jpeg";
-import img6 from "../../images/cat06.jpeg";
-import img7 from "../../images/cat07.jpeg";
-import img8 from "../../images/cat08.jpeg";
+function Board() {
+  async function fetchImages() {
+    const response = await fetch("https://cataas.com/api/cats?tags=cute");
+    const data = await response.json();
+    // console.log(data);
+    
+    data.forEach(async (cat) => {
+      const cat_img = await fetch(`https://cataas.com/cat/${cat._id}`);
+      console.log(cat_img.url);
+    });
 
-let images = [
-  { id: "1", name: img1 },
-  { id: "2", name: img2 },
-  { id: "3", name: img3 },
-  { id: "4", name: img4 },
-  { id: "5", name: img5 },
-  { id: "6", name: img6 },
-  { id: "7", name: img7 },
-  { id: "8", name: img8 },
-];
 
-window.addEventListener("click", function handleClick(e) {
-  const selectedElement = e.target;
-  console.log(selectedElement.id);
-});
+  }
+  
+  fetchImages();
+  
+  /* Create shuffled image-array */
+  const [images, setImages] = useState([
+    { id: 1, url: "../images/cat01.jpeg", status: "" },
+    { id: 2, url: "../images/cat02.jpeg", status: "" },
+    { id: 3, url: "../images/cat03.jpeg", status: "" },
+    { id: 4, url: "../images/cat04.jpeg", status: "" },
+    { id: 5, url: "../images/cat05.jpeg", status: "" },
+    { id: 6, url: "../images/cat06.jpeg", status: "" },
+    { id: 7, url: "../images/cat07.jpeg", status: "" },
+    { id: 8, url: "../images/cat08.jpeg", status: "" },
+    { id: 1, url: "../images/cat01.jpeg", status: "" },
+    { id: 2, url: "../images/cat02.jpeg", status: "" },
+    { id: 3, url: "../images/cat03.jpeg", status: "" },
+    { id: 4, url: "../images/cat04.jpeg", status: "" },
+    { id: 5, url: "../images/cat05.jpeg", status: "" },
+    { id: 6, url: "../images/cat06.jpeg", status: "" },
+    { id: 7, url: "../images/cat07.jpeg", status: "" },
+    { id: 8, url: "../images/cat08.jpeg", status: "" },
+  ].sort(() => Math.random() - 0.5));
+  // ;
+  
+  const [firstCard, setFirstCard] = useState(-1);
 
-function SelectedImg() {
-  const [cardsChosen, setCardsChosen] = useState([]);
-  //console.log(image, index);
-
-  if (cardsChosen?.length < 2) {
-    setCardsChosen((cardsChosen) => cardsChosen?.concat(image.id));
-    // setCardsChosenIds(cardsChosenIds => cardsChosenIds?.concat(index))
-
-    if (cardsChosen?.length === 1) {
-      // Check if images are the same
-      if (cardsChosen[0] === image.id) {
-        //setPoints(points => points + 2)
-        setOpenCards((openCards) =>
-          openCards?.concat([cardsChosen[0], image.id])
-        );
-      }
-      // setTimeout(() => {
-      //     setCardsChosenIds([])
-      //     setCardsChosen([])
-      // }, 700)
+  function compare(secondCard) {
+    /* if the cards have the same id, add status "same"*/
+    if (images[secondCard].id == images[firstCard].id) {
+      images[secondCard].status = " same";
+      images[firstCard].status = " same";
+      setImages([...images]);
+      setFirstCard(-1);
+    } else {
+      images[secondCard].status = " wrong";
+      images[firstCard].status = " wrong";
+      setImages([...images]);
+      setTimeout(() => {
+        /* Make the status empty again after 2 sec */
+        images[secondCard].status = "";
+        images[firstCard].status = "";
+        setImages([...images]);
+        setFirstCard(-1);
+      }, 2000);
     }
   }
-}
 
-images.push(...images);
+  function handleClick(id) {
+    if (firstCard === -1) {
+      images[id].status = " flipped";
+      setImages([...images]);
+      setFirstCard(id);
+    } else {
+      compare(id);
+    }
+  }
 
-const Board = () => {
   return (
     <BoardStyled>
-      {images
-        .sort(() => Math.random() - 0.5)
-        .map((image, i) => (
-          <Card key={i} id={image.id} image={image.name} />
-        ))}
+      {images.map((image, i) => (
+        <Card key={i} id={i} image={image} handleClick={handleClick} />
+      ))}
     </BoardStyled>
   );
-};
+}
 
 export default Board;
