@@ -7,6 +7,7 @@ export const CardStyledInner = styled.div`
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+  border-radius: 10px;
 
  &.flipped {
     transform: rotateY(180deg);
@@ -29,6 +30,7 @@ export const CardStyledBack = styled.div`
   height: 100%;
   background-color: red;
   backface-visibility: hidden;
+  border-radius: 10px;
 `;
 
 export const CardStyled = styled.div`
@@ -36,7 +38,7 @@ export const CardStyled = styled.div`
   height: 100px;
   perspective: 1000px;
   background-color: transparent;
-  border-radius: 4px;
+  border-radius: 10px;
 `;
 
 export const CardStyledFront = styled.div`
@@ -46,11 +48,13 @@ export const CardStyledFront = styled.div`
   background-color: aliceblue;
   transform: rotateY(180deg);
   backface-visibility: hidden;
+  border-radius: 10px;
 `;
 
 export const CardImageStyled = styled.img`
   width: 100px;
   height: 100px;
   display: block;
-  object-fit: contain;
+  object-fit: fill;
+  border-radius: 10px;
 `;
