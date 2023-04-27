@@ -4,47 +4,56 @@ import { BoardStyled } from "./styled";
 import Card from "../Card/";
 
 function Board() {
+
+  let [images, setImages] = useState([]);
+
   async function fetchImages() {
     const response = await fetch("https://cataas.com/api/cats?tags=cute");
     const data = await response.json();
-    // console.log(data);
     
-    data.forEach(async (cat) => {
-      const cat_img = await fetch(`https://cataas.com/cat/${cat._id}`);
-      console.log(cat_img.url);
-    });
-
+    images.push(...data);
+    
+    // images.map(async (cat) => {
+    //   const cat_img = await fetch(`https://cataas.com/cat/${cat._id}`);
+    //   console.log(cat_img.url);
+    // });
 
   }
   
   fetchImages();
+
+  images.map(object => {
+    return {...object, color: 'red'};
+  });
+
+  console.log(object);
   
   /* Create shuffled image-array */
-  const [images, setImages] = useState([
-    { id: 1, url: "../images/cat01.jpeg", status: "" },
-    { id: 2, url: "../images/cat02.jpeg", status: "" },
-    { id: 3, url: "../images/cat03.jpeg", status: "" },
-    { id: 4, url: "../images/cat04.jpeg", status: "" },
-    { id: 5, url: "../images/cat05.jpeg", status: "" },
-    { id: 6, url: "../images/cat06.jpeg", status: "" },
-    { id: 7, url: "../images/cat07.jpeg", status: "" },
-    { id: 8, url: "../images/cat08.jpeg", status: "" },
-    { id: 1, url: "../images/cat01.jpeg", status: "" },
-    { id: 2, url: "../images/cat02.jpeg", status: "" },
-    { id: 3, url: "../images/cat03.jpeg", status: "" },
-    { id: 4, url: "../images/cat04.jpeg", status: "" },
-    { id: 5, url: "../images/cat05.jpeg", status: "" },
-    { id: 6, url: "../images/cat06.jpeg", status: "" },
-    { id: 7, url: "../images/cat07.jpeg", status: "" },
-    { id: 8, url: "../images/cat08.jpeg", status: "" },
-  ].sort(() => Math.random() - 0.5));
+ //const [images, setImages] = useState([
+    // { id: 1, url: "../images/cat01.jpeg", status: "" },
+    // { id: 2, url: "../images/cat02.jpeg", status: "" },
+    // { id: 3, url: "../images/cat03.jpeg", status: "" },
+    // { id: 4, url: "../images/cat04.jpeg", status: "" },
+    // { id: 5, url: "../images/cat05.jpeg", status: "" },
+    // { id: 6, url: "../images/cat06.jpeg", status: "" },
+    // { id: 7, url: "../images/cat07.jpeg", status: "" },
+    // { id: 8, url: "../images/cat08.jpeg", status: "" },
+    // { id: 1, url: "../images/cat01.jpeg", status: "" },
+    // { id: 2, url: "../images/cat02.jpeg", status: "" },
+    // { id: 3, url: "../images/cat03.jpeg", status: "" },
+    // { id: 4, url: "../images/cat04.jpeg", status: "" },
+    // { id: 5, url: "../images/cat05.jpeg", status: "" },
+    // { id: 6, url: "../images/cat06.jpeg", status: "" },
+    // { id: 7, url: "../images/cat07.jpeg", status: "" },
+    // { id: 8, url: "../images/cat08.jpeg", status: "" },
+  // ].sort(() => Math.random() - 0.5));
   // ;
   
   const [firstCard, setFirstCard] = useState(-1);
 
   function compare(secondCard) {
     /* if the cards have the same id, add status "same"*/
-    if (images[secondCard].id == images[firstCard].id) {
+    if (images[secondCard].id === images[firstCard].id) {
       images[secondCard].status = " same";
       images[firstCard].status = " same";
       setImages([...images]);
@@ -75,8 +84,10 @@ function Board() {
 
   return (
     <BoardStyled>
-      {images.map((image, i) => (
-        <Card key={i} id={i} image={image} handleClick={handleClick} />
+      {images
+      .sort(() => Math.random() - 0.5)
+      .map((image, i) => (
+        <Card key={i} id={i} image={image} status="" handleClick={handleClick} />
       ))}
     </BoardStyled>
   );
