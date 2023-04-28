@@ -5,7 +5,6 @@ import styled from "styled-components";
 export const BoardStyled = styled.div`
   height: fit-content;
   width: fit-content;
-  background-color: aquamarine;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);

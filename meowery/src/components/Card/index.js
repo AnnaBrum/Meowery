@@ -7,20 +7,20 @@ import {
   CardImageStyled,
 } from "./styles";
 
-function Card({cat, id, handleClick}) {
+function Card({image, id, handleClick}) {
 
-  const imageClass = cat.status ? " flipped" + cat.status : "";
+  const imageClass = image.status ? " flipped" + image.status : "";
   
   return (
     <CardStyled  onClick={() => handleClick(id)}>
       <CardStyledInner className={imageClass}>
         <CardStyledFront>
           <CardImageStyled
-            src={cat.cat_img}
+            src={image.url}
             alt="cat-image"
           />
         </CardStyledFront>
-        <CardStyledBack>hej</CardStyledBack>
+        <CardStyledBack></CardStyledBack>
       </CardStyledInner>
     </CardStyled>
     

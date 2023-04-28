@@ -1,32 +1,31 @@
-import React, { useState } from "react";
-// import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
 import { BoardStyled } from "./styled";
 import Card from "../Card/";
 
+
 function Board() {
+
+  const apiKey = process.env.REACT_APP_API_KEY;
 
   let [images, setImages] = useState([]);
 
-  async function fetchImages() {
-    const response = await fetch("https://cataas.com/api/cats?tags=cute");
-    const data = await response.json();
+  useEffect(() => {
+    fetch(`https://cors.iamnd.eu.org/?url=https://api.thecatapi.com/v1/images/search?limit=8?api_key=${apiKey}`)
+    .then(response => response.json())
+    .then(data => setImages(data))
+    .catch(error => console.error(error));
     
-    images.push(...data);
-    
-    // images.map(async (cat) => {
-    //   const cat_img = await fetch(`https://cataas.com/cat/${cat._id}`);
-    //   console.log(cat_img.url);
-    // });
-
-  }
+  }, []);
   
-  fetchImages();
+images.map(image => {
+  return {...image, status: " "};
 
-  images.map(object => {
-    return {...object, color: 'red'};
-  });
+  
+})
 
-  console.log(object);
+  // images.push(...data);
+
+ 
   
   /* Create shuffled image-array */
  //const [images, setImages] = useState([
@@ -52,6 +51,7 @@ function Board() {
   const [firstCard, setFirstCard] = useState(-1);
 
   function compare(secondCard) {
+    
     /* if the cards have the same id, add status "same"*/
     if (images[secondCard].id === images[firstCard].id) {
       images[secondCard].status = " same";
@@ -87,7 +87,7 @@ function Board() {
       {images
       .sort(() => Math.random() - 0.5)
       .map((image, i) => (
-        <Card key={i} id={i} image={image} status="" handleClick={handleClick} />
+        <Card key={i} id={image.id} image={image} handleClick={handleClick} />
       ))}
     </BoardStyled>
   );
