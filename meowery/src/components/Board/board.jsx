@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BoardStyled } from "./styled";
-import Card from "../Card/card.js";
+import Card from "../Card/card.jsx";
 
 import img1 from "../images/cat01.jpeg";
 import img2 from "../../images/cat02.jpeg";

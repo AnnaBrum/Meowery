@@ -1,12 +1,17 @@
 import "./App.css";
+import Header from "./components/Header";
 import Board from "./components/Board/";
+import StartScreen from "./components/Start-screen";
+
+
 
 function App() {
   return (
     <div className="App">
-      <h1>MEOWERY</h1>
-      <h2>Meeeow, find two cats that look the same!</h2>
+      <Header />
+      <StartScreen />
       <Board />
+
     </div>
   );
 }

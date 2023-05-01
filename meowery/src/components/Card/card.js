@@ -6,9 +6,9 @@ import {
   CardStyledFront,
   CardStyledBack,
   CardImageStyled,
-} from "./styles";
+} from "./styled";
 
-const Card = ({ id, image, flipped, onClick, matched }) => {
+const Card = ({ id, image, onClick, matched }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleClick = () => {

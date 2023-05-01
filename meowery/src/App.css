@@ -1,12 +1,13 @@
-body {
-  height: 100vh;
-}
 
 .App {
+  width: 100vw;
+  height: 100vh;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgb(255, 200, 232);
+  background-color: rgb(255, 225, 243);
 }
+
+
