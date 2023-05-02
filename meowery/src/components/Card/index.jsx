@@ -6,12 +6,13 @@ import {
   CardImageStyled,
 } from "./styled";
 
-function Card({ image, id, handleClick }) {
-  const imageClass = image.status ? " flipped" + image.status : "";
+function Card({ image, index, handleClick }) {
+
+  // const cardClassName = image.status ? "flipped" : "";
 
   return (
-    <CardStyled onClick={() => handleClick(id)}>
-      <CardStyledInner className={imageClass}>
+    <CardStyled onClick={() => handleClick(index)}>
+      <CardStyledInner className={image.status}>
         <CardStyledFront>
           <CardImageStyled src={image.url} alt="cat-image" />
         </CardStyledFront>

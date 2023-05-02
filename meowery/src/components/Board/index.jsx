@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BoardStyled } from "./styled";
 import Card from "../Card";
 
-function Board() {
 
+function Board() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true); // add loading state
 
@@ -11,7 +11,7 @@ function Board() {
     const apiKey = process.env.REACT_APP_API_KEY;
     const api = `https://api.thecatapi.com/v1/images/search?limit=10`;
 
-    fetch(api, {headers: {"x-api-key": apiKey}})
+    fetch(api, { headers: { "x-api-key": apiKey } })
       .then((response) => response.json())
       .then((data) => {
         const catImages = data.slice(0, 8).map((cat) => {
@@ -21,6 +21,7 @@ function Board() {
             status: "", // indicates if card is flipped, same or wrong when clicked
           };
         });
+        //Duplicate all images
         const duplicatedImages = [...catImages, ...catImages];
         setImages(duplicatedImages.sort(() => Math.random() - 0.5));
         setLoading(false); // set loading to false when images are loaded
@@ -28,80 +29,69 @@ function Board() {
       .catch((error) => console.error(error));
   }, []);
 
-  console.log(images);
-
-
-  // const deep = JSON.parse(JSON.stringify(images));
-
-  const [firstCard, setFirstCard] = useState(-1);
-
-  function compare(secondCard) {
   
-  // returns if the same image is being clicked twice
-  if (firstCard === secondCard) {
-    return;
-  }
+  const [firstCard, setFirstCard] = useState(-1);
+  const firstCardIndex = useRef(-1); // stops a re-render, returns only a value that stays the same between renders.
 
-    // const firstCardId = images[firstCard].id;
-    // const secondCardId = images[secondCard].id;
 
-    
-    /* if the cards have the same id, add status "same"*/
+  // Funcion that compares the first selected card with the second
+  function compare(secondCard) {
     if (images[firstCard].id === images[secondCard].id) {
-      setImages(prevImages => {
-        const newImages = [...prevImages];
-        newImages[secondCard].status = " same";
-        newImages[firstCard].status = " same";
-        return newImages;
-      });
+      images[secondCard].status = "flipped same";
+      images[firstCard].status = "flipped same";
       setFirstCard(-1);
     } else {
-      setImages(prevImages => {
-        const newImages = [...prevImages];
-        newImages[secondCard].status = " wrong";
-        newImages[firstCard].status = " wrong";
-        return newImages
-      });
+      images[secondCard].status = "flipped";
+      setImages([...images]);
       setTimeout(() => {
-        /* Make the status empty again after 1 sec */
-        setImages(prevImages => {
-          const newImages = [...prevImages];
-          newImages[secondCard].status = "";
-          newImages[firstCard].status = "";
-          return newImages;
-        });
-        // setFirstCard(-1);
-      }, 1000);
+        // Make the status empty again after 1 sec 
+        setFirstCard(-1);
+        images[secondCard].status = " wrong";
+        images[firstCard].status = " wrong";
+        // Set cards back to face-down
+      }, 1300);
+      setImages([...images]);
     }
-     setFirstCard(-1);
   }
 
-  function handleClick(id) {
-    if (loading) { // don't allow clicks if images are still loading
-      <p>Loading...</p>
+  function handleClick(index) {
+    if (loading) {
+      // don't allow clicks if images are still loading
+      <p>Loading...</p>;
       return;
     }
-    const index = images.findIndex((image) => image.id === id)
-    if (firstCard === -1) {
-      const updatedImages = [...images];
-      updatedImages[index].status = " flipped";
-      setImages(updatedImages);
-      setFirstCard(index);
-    } else if (index !== -1 && index !== firstCard) {
-      const updatedImages = [...images];
-      updatedImages[index].status = " flipped";
-      setImages(updatedImages);
-      compare(index);
+    if (index !== firstCardIndex.current) {
+      if (images[index].status === "flipped same") {
+        <p>Meeeoow it's a match!</p>;
+      } else {
+        if (firstCard === -1) {
+          firstCardIndex.current = index;
+          images[index].status = " flipped";
+          setImages([...images]);
+          setFirstCard(index);
+        } else {
+          compare(index);
+          firstCardIndex.current = -1;
+        }
+      }
+    } else {
+      return;
     }
   }
 
-  
-
-
-  return (   
+  console.log("images", images);
+ 
+  return (
     <BoardStyled>
-      {images.map((image, i) => (
-        <Card key={i} id={image.id} image={image} handleClick={handleClick} />
+      {images.map((image, index) => (
+        <Card
+          key={index}
+          index={index}
+          id={image.id}
+          image={image}
+          handleClick={handleClick}
+        />
+        
       ))}
     </BoardStyled>
   );

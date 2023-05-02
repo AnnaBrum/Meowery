@@ -28,7 +28,7 @@ export const CardStyledBack = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: red;
+  background-color: rgb(255, 200, 240);
   backface-visibility: hidden;
   border-radius: 10px;
 `;
@@ -39,6 +39,8 @@ export const CardStyled = styled.div`
   perspective: 1000px;
   background-color: transparent;
   border-radius: 10px;
+  border: .5px solid black;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `;
 
 export const CardStyledFront = styled.div`
