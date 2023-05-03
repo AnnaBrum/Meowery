@@ -1,10 +1,10 @@
 import { MessageStyled } from "./styled";
 
-function Message() {
-  return (
-    // <div className="message-box">
+function Message({ matched }) {
+
+  return matched && ( 
     <MessageStyled>
-      <p>Message if a match</p>
+      <p>I'ts a match!</p>
     </MessageStyled>
   );
 }

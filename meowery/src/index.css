@@ -12,7 +12,7 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-around;
-  padding: 40px;
+  padding: 20px 20px 0px 20px;
 }
 
 h1 {

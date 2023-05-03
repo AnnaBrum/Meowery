@@ -9,7 +9,7 @@ function Button({shuffleCards}) {
 
     return (
     <ButtonStyled className="start-btn" onClick={handleClick}>
-      Start Playing!
+      New Game!
     </ButtonStyled>
     )
 };

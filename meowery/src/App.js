@@ -13,7 +13,7 @@ function App() {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
-
+ 
   const shuffleCards = () => {
     const apiKey = process.env.REACT_APP_API_KEY;
     const api = `https://api.thecatapi.com/v1/images/search?limit=10`;
@@ -79,7 +79,8 @@ function App() {
 
       <div className="info-box">
         <Counter turns={turns} />
-        <Message />
+      
+          <Message  />
       </div>
       <Board>
         {cards.map((card) => (

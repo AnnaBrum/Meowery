@@ -6,6 +6,6 @@ export const BoardStyled = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  padding: 4rem;
+  padding: 20px;
   gap: 1em;
 `;
