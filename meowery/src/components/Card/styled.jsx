@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export const CardStyled = styled.div`
+  width: 100px;
+  height: 100px;
+  perspective: 1000px;
+  background-color: transparent;
+  border-radius: 10px;
+  border: .5px solid black;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+`;
 export const CardStyledInner = styled.div`
   position: relative;
   width: 100%;
@@ -33,15 +42,6 @@ export const CardStyledBack = styled.div`
   border-radius: 10px;
 `;
 
-export const CardStyled = styled.div`
-  width: 100px;
-  height: 100px;
-  perspective: 1000px;
-  background-color: transparent;
-  border-radius: 10px;
-  border: .5px solid black;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-`;
 
 export const CardStyledFront = styled.div`
   position: absolute;
