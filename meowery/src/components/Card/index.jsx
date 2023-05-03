@@ -1,24 +1,26 @@
-import {
-  CardStyled,
-  CardStyledInner,
-  CardStyledFront,
-  CardStyledBack,
-  CardImageStyled,
-} from "./styled";
+// import {
+//   CardStyled,
+//   CardStyledInner,
+//   CardStyledFront,
+//   CardStyledBack,
+//   CardImageStyled,
+// } from "./styled";
+import "./card.css";
 
-function Card({ image, index, handleClick }) {
+function Card({ card, handleChoice, flipped }) {
 
-  // const cardClassName = image.status ? "flipped" : "";
+  const handleClick = () => {
+    handleChoice(card);
+  };
 
   return (
-    <CardStyled onClick={() => handleClick(index)}>
-      <CardStyledInner className={image.status}>
-        <CardStyledFront>
-          <CardImageStyled src={image.url} alt="cat-image" />
-        </CardStyledFront>
-        <CardStyledBack></CardStyledBack>
-      </CardStyledInner>
-    </CardStyled>
-  );
-}
+    <div className="card">
+      <div className={flipped ? "flipped" : ""}>
+        <img className="front" src={card.url} alt="cat" />
+        <div className="back" onClick={handleClick}></div>
+      </div>
+    </div>
+  )
+};
+
 export default Card;
