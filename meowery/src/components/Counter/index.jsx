@@ -1,10 +1,10 @@
-import React from "react";
+import { CounterStyled } from "./styled";
 
 function Counter() {
     return (
-        <div className="count-box">
+        <CounterStyled>
         <p>Flipped cards count:</p>
-        </div>
+        </CounterStyled>
     )
 }
 

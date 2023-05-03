@@ -8,34 +8,4 @@
   
 }
 
-body {
-  width: 100vw;
-  height: 100vh;
-  background-color: rgb(255, 225, 243);
-}
-
-/* .card-grid {
-  height: 100%;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  padding: 1rem;
-  gap: 1em;
-} */
-
-/* .front,
-.back {
-  width: 100px;
-  height: 100px;
-  display: block;
-  object-fit: contain;
-} */
-
-
-.info-box {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-}
 
