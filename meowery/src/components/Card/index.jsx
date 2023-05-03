@@ -1,6 +1,3 @@
- import {
-  
- } from "./styled";
 import "./card.css";
 
 function Card({ card, handleChoice, flipped, disabled }) {
