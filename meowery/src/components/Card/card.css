@@ -1,3 +1,5 @@
+/* import styled from "styled-components"; */
+
 .card {
   position: relative;
 }
@@ -31,7 +33,6 @@
 
 .flipped .front {
   transform: rotateY(0deg);
-  transition-delay: 0.4s;
 }
 
 .card .back {

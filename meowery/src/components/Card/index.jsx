@@ -1,10 +1,6 @@
-// import {
-//   CardStyled,
-//   CardStyledInner,
-//   CardStyledFront,
-//   CardStyledBack,
-//   CardImageStyled,
-// } from "./styled";
+ import {
+  
+ } from "./styled";
 import "./card.css";
 
 function Card({ card, handleChoice, flipped }) {
