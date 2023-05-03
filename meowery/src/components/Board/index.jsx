@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { BoardStyled } from "./styled";
 import Card from "../Card";
 
-
 function Board() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true); // add loading state
@@ -16,7 +15,7 @@ function Board() {
       .then((data) => {
         const catImages = data.slice(0, 8).map((cat) => {
           return {
-            id: cat.id,
+            pairId: cat.id,
             url: cat.url,
             status: "", // indicates if card is flipped, same or wrong when clicked
           };
@@ -29,58 +28,52 @@ function Board() {
       .catch((error) => console.error(error));
   }, []);
 
-  
   const [firstCard, setFirstCard] = useState(-1);
   const firstCardIndex = useRef(-1); // stops a re-render, returns only a value that stays the same between renders.
 
-
   // Funcion that compares the first selected card with the second
   function compare(secondCard) {
-    if (images[firstCard].id === images[secondCard].id) {
+    if (images[firstCard].pairId === images[secondCard].pairId) {
       images[secondCard].status = "flipped same";
-      images[firstCard].status = "flipped same";
+      console.log("It's a match");
       setFirstCard(-1);
     } else {
       images[secondCard].status = "flipped";
       setImages([...images]);
       setTimeout(() => {
-        // Make the status empty again after 1 sec 
+        images[secondCard].status = " ";
+        images[firstCard].status = " ";
         setFirstCard(-1);
-        images[secondCard].status = " wrong";
-        images[firstCard].status = " wrong";
-        // Set cards back to face-down
-      }, 1300);
-      setImages([...images]);
+        setImages([...images]);
+      }, 1500);
     }
   }
 
   function handleClick(index) {
+    // console.log(id);
+    // don't allow clicks if images are still loading
     if (loading) {
-      // don't allow clicks if images are still loading
       <p>Loading...</p>;
       return;
     }
-    if (index !== firstCardIndex.current) {
-      if (images[index].status === "flipped same") {
-        <p>Meeeoow it's a match!</p>;
-      } else {
-        if (firstCard === -1) {
-          firstCardIndex.current = index;
-          images[index].status = " flipped";
-          setImages([...images]);
-          setFirstCard(index);
-        } else {
-          compare(index);
-          firstCardIndex.current = -1;
-        }
-      }
-    } else {
-      return;
+    // setFirstCard(index);
+    switch (index !== firstCardIndex.current) {
+      case images[index].status === "flipped same":
+      <p>Meeeoow it's a match!</p>
+      break;
+      case firstCard === -1: 
+      firstCardIndex.current = index;
+      images[index].status = " flipped";
+      setImages([...images]);
+      setFirstCard(index);
+      break;
+      default: compare(index);
+      firstCardIndex.current = -1;
     }
   }
 
   console.log("images", images);
- 
+
   return (
     <BoardStyled>
       {images.map((image, index) => (
@@ -91,7 +84,6 @@ function Board() {
           image={image}
           handleClick={handleClick}
         />
-        
       ))}
     </BoardStyled>
   );

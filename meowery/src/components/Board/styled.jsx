@@ -1,5 +1,3 @@
-//import React from "react";
-
 import styled from "styled-components";
 
 export const BoardStyled = styled.div`
@@ -8,6 +6,6 @@ export const BoardStyled = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  padding: 1rem;
+  padding: 4rem;
   gap: 1em;
 `;
