@@ -8,11 +8,11 @@ import Counter from "./components/Counter";
 import Message from "./components/Message";
 
 function App() {
-
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
+  const [disabled, setDisabled] = useState(false);
 
   const shuffleCards = () => {
     const apiKey = process.env.REACT_APP_API_KEY;
@@ -43,6 +43,7 @@ function App() {
   //compare 2 selected cards
   useEffect(() => {
     if (choiceOne && choiceTwo) {
+      setDisabled(true);
       if (choiceOne.url === choiceTwo.url) {
         setCards((prevCards) => {
           return prevCards.map((card) => {
@@ -66,6 +67,7 @@ function App() {
     setChoiceOne(null);
     setChoiceTwo(null);
     setTurns((prevTurns) => prevTurns + 1);
+    setDisabled(false);
   };
 
   console.log(cards);
@@ -74,17 +76,19 @@ function App() {
     <div className="App">
       <Header />
       <Button shuffleCards={shuffleCards} />
+
       <div className="info-box">
-        <Counter/>
+        <Counter turns={turns} />
         <Message />
       </div>
       <Board>
         {cards.map((card) => (
-          <Card 
+          <Card
             key={card.id}
             card={card}
             handleChoice={handleChoice}
             flipped={card === choiceOne || card === choiceTwo || card.matched}
+            disabled={disabled}
           />
         ))}
       </Board>

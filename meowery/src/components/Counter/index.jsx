@@ -1,11 +1,11 @@
 import { CounterStyled } from "./styled";
 
-function Counter() {
-    return (
-        <CounterStyled>
-        <p>Flipped cards count:</p>
-        </CounterStyled>
-    )
+function Counter({ turns }) {
+  return (
+    <CounterStyled>
+      <p>Turns: {turns}</p>
+    </CounterStyled>
+  );
 }
 
 export default Counter;

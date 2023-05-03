@@ -7,10 +7,11 @@
 // } from "./styled";
 import "./card.css";
 
-function Card({ card, handleChoice, flipped }) {
-
+function Card({ card, handleChoice, flipped, disabled }) {
   const handleClick = () => {
-    handleChoice(card);
+    if (!disabled) {
+      handleChoice(card);
+    }
   };
 
   return (
@@ -20,7 +21,7 @@ function Card({ card, handleChoice, flipped }) {
         <div className="back" onClick={handleClick}></div>
       </div>
     </div>
-  )
-};
+  );
+}
 
 export default Card;
