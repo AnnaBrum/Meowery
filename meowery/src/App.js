@@ -13,24 +13,21 @@ function App() {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
-  
 
-  const shuffleCards = () => {
+  const createDeck = () => {
     const apiKey = process.env.REACT_APP_API_KEY;
     const api = `https://api.thecatapi.com/v1/images/search?limit=10`;
 
-    let shuffledCards = [];
+    let deck = [];
 
     fetch(api, { headers: { "x-api-key": apiKey } })
       .then((response) => response.json())
       .then((data) => {
         const images = data.slice(0, 8);
-        shuffledCards = [...images, ...images]
+        deck = [...images, ...images]
           .sort(() => Math.random() - 0.5)
           .map((card) => ({ ...card, matched: false, id: Math.random() }));
-
-        console.log(shuffledCards);
-        setCards(shuffledCards);
+        setCards(deck);
         setTurns(0);
       })
       .catch((error) => console.error(error));
@@ -75,8 +72,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Button shuffleCards={shuffleCards} />
-
+      <Button createDeck={createDeck} />
       <div className="info-box">
         <Counter turns={turns} />
           <Message /> 

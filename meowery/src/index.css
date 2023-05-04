@@ -10,8 +10,8 @@ body {
 
 .info-box {
   width: 100%;
-  display: flex;
-  justify-content: space-around;
+  /* display: flex;
+  justify-content: space-around; */
   padding: 20px 20px 0px 20px;
 }
 

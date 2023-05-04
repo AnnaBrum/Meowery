@@ -1,10 +1,10 @@
 import React from "react";
 import { ButtonStyled } from "./styled";
 
-function Button({shuffleCards}) {
+function Button({createDeck}) {
 
   const handleClick = () => {
-    shuffleCards();
+    createDeck();
   }
 
     return (

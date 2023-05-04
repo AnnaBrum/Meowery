@@ -2,6 +2,6 @@ import styled from "styled-components";
 
 export const MessageStyled = styled.div`
     p {
-        font-size: 12px;
+        font-size: 30px;
     }
 `;
