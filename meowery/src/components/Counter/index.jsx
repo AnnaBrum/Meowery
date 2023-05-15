@@ -1,11 +1,16 @@
 import { CounterStyled } from "./styled";
+import PropTypes from "prop-types";
 
-function Counter({ turns }) {
+function Counter({ counterText, turns }) {
   return (
     <CounterStyled>
-      <p>Turns: {turns}</p>
+      <p>{counterText} {turns}</p>
     </CounterStyled>
   );
 }
+
+Counter.propTypes = {
+  counterText: PropTypes.string
+};
 
 export default Counter;

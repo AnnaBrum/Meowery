@@ -14,6 +14,9 @@ function App() {
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
 
+  //starting with no points
+  let points = 0;
+
   const createDeck = () => {
     const apiKey = process.env.REACT_APP_API_KEY;
     const api = `https://api.thecatapi.com/v1/images/search?limit=10`;
@@ -33,7 +36,7 @@ function App() {
       .catch((error) => console.error(error));
   };
 
-  //Handle choice
+  //handle choice
   const handleChoice = (card) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
@@ -68,14 +71,19 @@ function App() {
     setDisabled(false);
   };
 
+  //
+
+  const countScore = () => {
+    
+  }
 
   return (
     <div className="App">
       <Header />
-      <Button createDeck={createDeck} />
+      <Button createDeck={createDeck} buttonText="New Game!"/>
       <div className="info-box">
-        <Counter turns={turns} />
-          <Message /> 
+        <Counter turns={turns} counterText="Turns: "/>
+        <Message messageText={"sålänge"}/> 
       </div>
       <Board>
         {cards.map((card) => (

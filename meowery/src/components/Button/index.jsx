@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { ButtonStyled } from "./styled";
 
-function Button({createDeck}) {
+function Button({createDeck, buttonText}) {
 
   const handleClick = () => {
     createDeck();
@@ -9,9 +10,13 @@ function Button({createDeck}) {
 
     return (
     <ButtonStyled className="start-btn" onClick={handleClick}>
-      New Game!
+      {buttonText}
     </ButtonStyled>
     )
+};
+
+Button.propTypes = {
+  buttonText: PropTypes.string
 };
 
 export default Button;
