@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function Message({ messageText }) {
 
     return ( 
-      <div>{messageText}</div>   
+      <div className="message">{messageText}</div>   
   );
   }
 

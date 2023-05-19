@@ -10,12 +10,20 @@ import Message from "./components/Message";
 function App() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
-  const [choiceOne, setChoiceOne] = useState(null);
-  const [choiceTwo, setChoiceTwo] = useState(null);
+  const [cardOne, setCardOne] = useState(null);
+  const [cardTwo, setCardTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const [message, setMessage] = useState("");
+  const [matchedPairs, setMatchedPairs] = useState(0);
 
   //starting with no points
-  let points = 0;
+  // let points = 0;
+
+  // fetch cat-images from api when app is mounted
+  useEffect(() => {
+    createDeck(); 
+  }, []);
+
 
   const createDeck = () => {
     const apiKey = process.env.REACT_APP_API_KEY;
@@ -36,46 +44,52 @@ function App() {
       .catch((error) => console.error(error));
   };
 
-  //handle choice
+  //if a card already has been selected, set next card to "cardTwo"
   const handleChoice = (card) => {
-    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+    cardOne ? setCardTwo(card) : setCardOne(card);
   };
 
-  //compare 2 selected cards
+  //compare the selected cards and display message if match or no match
   useEffect(() => {
-    if (choiceOne && choiceTwo) {
+    if (cardOne && cardTwo) {
       setDisabled(true);
-      if (choiceOne.url === choiceTwo.url) {
+      if (cardOne.url === cardTwo.url) {
         setCards((prevCards) => {
           return prevCards.map((card) => {
-            if (card.url === choiceOne.url) {
+            if (card.url === cardOne.url) {
               return { ...card, matched: true }
             } else {
               return card;
             }
           });
         });
-
+        setMatchedPairs((prevMatchedPairs) => prevMatchedPairs + 1)
+        setMessage("Meeoow cats matched!")
         resetTurn();
       } else {
-        setTimeout(() => resetTurn(), 1000);
+        setMessage("oops no match, try again!")
+        setTimeout(() => {
+          setMessage("");
+        }, 3000)
+        setTimeout(() => resetTurn(), 2000);
       }
     }
-  }, [choiceOne, choiceTwo]);
+  }, [cardOne, cardTwo]);
 
-  //reset choices and increase turn
+  // when all cards have matched
+  useEffect(() => {
+    if (matchedPairs === cards.length / 2) {
+      setMessage("Purrrrrrfect! All cats have found their buddy!")
+    }
+  }, [matchedPairs, cards])
+
+  //reset selected cards and increase turn
   const resetTurn = () => {
-    setChoiceOne(null);
-    setChoiceTwo(null);
+    setCardOne(null);
+    setCardTwo(null);
     setTurns((prevTurns) => prevTurns + 1);
     setDisabled(false);
   };
-
-  //
-
-  const countScore = () => {
-    
-  }
 
   return (
     <div className="App">
@@ -83,7 +97,7 @@ function App() {
       <Button createDeck={createDeck} buttonText="New Game!"/>
       <div className="info-box">
         <Counter turns={turns} counterText="Turns: "/>
-        <Message messageText={"sålänge"}/> 
+        {message && <Message messageText={message} />}
       </div>
       <Board>
         {cards.map((card) => (
@@ -91,7 +105,7 @@ function App() {
             key={card.id}
             card={card}
             handleChoice={handleChoice}
-            flipped={card === choiceOne || card === choiceTwo || card.matched}
+            flipped={card === cardOne || card === cardTwo || card.matched}
             disabled={disabled}
           />
         ))}
