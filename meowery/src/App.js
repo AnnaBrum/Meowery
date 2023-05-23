@@ -14,21 +14,22 @@ function App() {
   const [cardTwo, setCardTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const [message, setMessage] = useState("");
-  const [matchedPairs, setMatchedPairs] = useState(0);
+  const [matchedPairs, setMatchedPairs] = useState(false);
 
   //starting with no points
   // let points = 0;
 
   // fetch cat-images from api when app is mounted
   useEffect(() => {
-    createDeck(); 
+    createDeck();
   }, []);
-
 
   const createDeck = () => {
     const apiKey = process.env.REACT_APP_API_KEY;
     const api = `https://api.thecatapi.com/v1/images/search?limit=10`;
 
+    setMatchedPairs(false);
+    
     let deck = [];
 
     fetch(api, { headers: { "x-api-key": apiKey } })
@@ -40,6 +41,7 @@ function App() {
           .map((card) => ({ ...card, matched: false, id: Math.random() }));
         setCards(deck);
         setTurns(0);
+        setMatchedPairs(false); // Reset matchedPairs to false
       })
       .catch((error) => console.error(error));
   };
@@ -57,20 +59,20 @@ function App() {
         setCards((prevCards) => {
           return prevCards.map((card) => {
             if (card.url === cardOne.url) {
-              return { ...card, matched: true }
+              return { ...card, matched: true };
             } else {
               return card;
             }
           });
         });
-        setMatchedPairs((prevMatchedPairs) => prevMatchedPairs + 1)
-        setMessage("Meeoow cats matched!")
+        setMatchedPairs((prevMatchedPairs) => prevMatchedPairs + 1);
+        setMessage("Meeoow cats matched!");
         resetTurn();
       } else {
-        setMessage("oops no match, try again!")
+        setMessage("oops no match, try again!");
         setTimeout(() => {
           setMessage("");
-        }, 3000)
+        }, 3000);
         setTimeout(() => resetTurn(), 2000);
       }
     }
@@ -78,10 +80,10 @@ function App() {
 
   // when all cards have matched
   useEffect(() => {
-    if (matchedPairs === cards.length / 2) {
-      setMessage("Purrrrrrfect! All cats have found their buddy!")
+    if (matchedPairs && matchedPairs === 8) {
+      setMessage("Purrrrrrfect! All cats have found their buddy!");
     }
-  }, [matchedPairs, cards])
+  }, [matchedPairs, cards]);
 
   //reset selected cards and increase turn
   const resetTurn = () => {
@@ -94,9 +96,9 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Button createDeck={createDeck} buttonText="New Game!"/>
+      <Button createDeck={createDeck} buttonText="New Game!" />
       <div className="info-box">
-        <Counter turns={turns} counterText="Turns: "/>
+        <Counter turns={turns} counterText="Turns: " />
         {message && <Message messageText={message} />}
       </div>
       <Board>
